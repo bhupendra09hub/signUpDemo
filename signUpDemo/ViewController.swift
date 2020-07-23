@@ -20,7 +20,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         btnSignIn.layer.cornerRadius = 10.0
         vwSignIn.layer.cornerRadius = 8
-        print("Hello Bhupendra")
         print(reverse("Bhupendra"))
     }
     
