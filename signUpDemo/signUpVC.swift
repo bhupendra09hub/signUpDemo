@@ -16,12 +16,11 @@ class signUpVC: UIViewController {
     @IBOutlet weak var tfPwd: UITextField!
     @IBOutlet weak var btnSignUp: UIButton!
     @IBOutlet weak var imgUser: UIImageView!
-    
+    var imgData:NSData?
     override func viewDidLoad() {
         super.viewDidLoad()
         viewSignUP.layer.cornerRadius = 8.0
         btnSignUp.layer.cornerRadius = 10.0
-        
     }
     
     @IBAction func signUpAction(_ sender: UIButton) {
@@ -41,6 +40,7 @@ class signUpVC: UIViewController {
             print("Enter Password")
             return
         }
+        
         let appDel = UIApplication.shared.delegate as! AppDelegate
         let managedObj = appDel.persistentContainer.viewContext
         let userObj = NSEntityDescription.insertNewObject(forEntityName: "UserData", into: managedObj)
@@ -48,7 +48,7 @@ class signUpVC: UIViewController {
         userObj.setValue(tfEmail.text, forKey: "email")
         userObj.setValue(tfContact.text, forKey: "contact")
         userObj.setValue(tfPwd.text, forKey: "password")
-        
+        userObj.setValue(imgData, forKey: "image")
         do {
             try managedObj.save()
             print("Data Saved")
@@ -64,7 +64,6 @@ class signUpVC: UIViewController {
 }
 
 extension signUpVC:UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
     @IBAction func cameraAction(_ sender: UIButton) {
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
@@ -73,10 +72,14 @@ extension signUpVC:UIImagePickerControllerDelegate, UINavigationControllerDelega
         pickerController.sourceType = .photoLibrary
         present(pickerController, animated: true, completion: nil)
     }
-    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imgUser.image = pickedImage
+            imgData = pickedImage.pngData() as NSData?
+            if imgData == nil {
+                return
+            }
+            
         }
         dismiss(animated: true, completion: nil)
     }
