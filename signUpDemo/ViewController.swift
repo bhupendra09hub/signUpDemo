@@ -20,8 +20,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         btnSignIn.layer.cornerRadius = 10.0
         vwSignIn.layer.cornerRadius = 8
+        print("Hello Bhupendra")
+        print(reverse("Bhupendra"))
     }
     
+    func reverse(_ text:String)->String {
+        return String(text.reversed())
+    }
     override func viewWillAppear(_ animated: Bool) {
         let appDel = UIApplication.shared.delegate as! AppDelegate
         let managedObj = appDel.persistentContainer.viewContext
