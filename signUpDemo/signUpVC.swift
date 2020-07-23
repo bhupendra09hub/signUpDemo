@@ -15,11 +15,15 @@ class signUpVC: UIViewController {
     @IBOutlet weak var tfEmail: UITextField!
     @IBOutlet weak var tfPwd: UITextField!
     @IBOutlet weak var btnSignUp: UIButton!
+    @IBOutlet weak var imgUser: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewSignUP.layer.cornerRadius = 8.0
         btnSignUp.layer.cornerRadius = 10.0
+        
     }
+    
     @IBAction func signUpAction(_ sender: UIButton) {
         if tfEmail.text!.isEmpty && tfPwd.text!.isEmpty && tfName.text!.isEmpty && tfContact.text!.isEmpty {
             print("Please enter all details")
@@ -37,7 +41,6 @@ class signUpVC: UIViewController {
             print("Enter Password")
             return
         }
-
         let appDel = UIApplication.shared.delegate as! AppDelegate
         let managedObj = appDel.persistentContainer.viewContext
         let userObj = NSEntityDescription.insertNewObject(forEntityName: "UserData", into: managedObj)
@@ -58,4 +61,27 @@ class signUpVC: UIViewController {
             print("Data didn't saved", error.localizedDescription)
         }
     }
+}
+
+extension signUpVC:UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    @IBAction func cameraAction(_ sender: UIButton) {
+        let pickerController = UIImagePickerController()
+        pickerController.delegate = self
+        pickerController.allowsEditing = true
+        pickerController.mediaTypes = ["public.image", "public.movie"]
+        pickerController.sourceType = .photoLibrary
+        present(pickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            imgUser.image = pickedImage
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
