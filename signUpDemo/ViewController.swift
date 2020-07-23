@@ -24,7 +24,6 @@ class ViewController: UIViewController {
         print("Hello Bhupendra")
         let revers = (reverse("Bhupendra"))
         lblReverse.text = revers
-        print(revers)
     }
     
     func reverse(_ text:String)->String {
