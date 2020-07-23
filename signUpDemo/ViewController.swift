@@ -14,13 +14,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var tfPassword: UITextField!
     @IBOutlet weak var vwSignIn: UIView!
     @IBOutlet weak var btnSignIn: UIButton!
+    @IBOutlet weak var lblReverse: UILabel!
     var userData:[NSManagedObject] = []
     var name:String?
     override func viewDidLoad() {
         super.viewDidLoad()
         btnSignIn.layer.cornerRadius = 10.0
         vwSignIn.layer.cornerRadius = 8
-        print(reverse("Bhupendra"))
+        print("Hello Bhupendra")
+        let revers = (reverse("Bhupendra"))
+        lblReverse.text = revers
     }
     
     func reverse(_ text:String)->String {
