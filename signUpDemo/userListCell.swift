@@ -12,4 +12,5 @@ class userListCell: UITableViewCell {
     @IBOutlet weak var lblLogo: UILabel!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblContact: UILabel!
+    @IBOutlet weak var imgLogo: UIImageView!
 }

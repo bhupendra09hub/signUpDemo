@@ -24,7 +24,10 @@ class signUpVC: UIViewController {
     }
     
     @IBAction func signUpAction(_ sender: UIButton) {
-        if tfEmail.text!.isEmpty && tfPwd.text!.isEmpty && tfName.text!.isEmpty && tfContact.text!.isEmpty {
+        if imgData == nil {
+            print("Please select image")
+            return
+        } else if tfEmail.text!.isEmpty && tfPwd.text!.isEmpty && tfName.text!.isEmpty && tfContact.text!.isEmpty {
             print("Please enter all details")
             return
         } else if tfName.text!.isEmpty {
@@ -56,6 +59,7 @@ class signUpVC: UIViewController {
             tfEmail.text = ""
             tfContact.text = ""
             tfPwd.text = ""
+            imgUser.image = UIImage(named: "user_icon")
             navigationController?.popViewController(animated: true)
         } catch {
             print("Data didn't saved", error.localizedDescription)
